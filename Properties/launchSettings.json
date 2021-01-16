@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CodeConvert": {
+      "commandName": "Project",
+      "commandLineArgs": "-d -s bbb"
+    }
+  }
+}

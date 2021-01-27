@@ -2,7 +2,7 @@
   "profiles": {
     "CodeConvert": {
       "commandName": "Project",
-      "commandLineArgs": "-d -s bbb"
+      "commandLineArgs": "-d aa -s bbb"
     }
   }
 }

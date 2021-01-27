@@ -14,14 +14,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="SourceDefend\Csharp\in\" />
-    <Folder Include="SourceDefend\Csharp\out\" />
-    <Folder Include="SourceDefend\C\in\" />
-    <Folder Include="SourceDefend\C\out\" />
-    <Folder Include="SourceDefend\JavaScript\in\" />
-    <Folder Include="SourceDefend\JavaScript\out\" />
-    <Folder Include="SourceDefend\Java\in\" />
-    <Folder Include="SourceDefend\Java\out\" />
+    <Folder Include="SourceDefend\Cpp\v1.0\in\" />
+    <Folder Include="SourceDefend\Cpp\v1.0\out\" />
+    <Folder Include="SourceDefend\Csharp\v1.0\in\" />
+    <Folder Include="SourceDefend\Csharp\v1.0\out\" />
+    <Folder Include="SourceDefend\C\v1.0\in\" />
+    <Folder Include="SourceDefend\C\v1.0\out\" />
+    <Folder Include="SourceDefend\C\v1.0\" />
+    <Folder Include="SourceDefend\JavaScript\v1.0\in\" />
+    <Folder Include="SourceDefend\JavaScript\v1.0\out\" />
+    <Folder Include="SourceDefend\Java\v1.0\in\" />
+    <Folder Include="SourceDefend\Java\v1.0\out\" />
   </ItemGroup>
 
 </Project>

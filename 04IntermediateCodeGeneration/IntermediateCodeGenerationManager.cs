@@ -18,8 +18,8 @@ namespace CodeConvert._04IntermediateCodeGeneration
 
         public string [] Generation()
         {
-           
-            return [];
+            string[] text = null;
+            return text;
         }
     }
 }

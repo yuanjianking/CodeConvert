@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeConvert.Constant;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,9 +23,13 @@ namespace CodeConvert.Core
 
         private string destinationPath = null;
 
-        private string inputType = null;
+        private SourceType inputType = SourceType.Undefine;
 
-        private string outputType = null;
+        private string inputVersion = null;
+
+        private SourceType outputType = SourceType.Undefine;
+
+        private string outputVersion = null;
 
 
         public string SourcePath
@@ -48,7 +53,7 @@ namespace CodeConvert.Core
                 return destinationPath;
             }
         }
-        public string InputType
+        public SourceType InputType
         {
             set
             {
@@ -59,7 +64,18 @@ namespace CodeConvert.Core
                 return inputType;
             }
         }
-        public string OutputType
+        public string InputVersion
+        {
+            set
+            {
+                inputVersion = value;
+            }
+            get
+            {
+                return inputVersion;
+            }
+        }
+        public SourceType OutputType
         {
             set
             {
@@ -68,6 +84,18 @@ namespace CodeConvert.Core
             get
             {
                 return outputType;
+            }
+        }
+
+        public string OutputVersion
+        {
+            set
+            {
+                outputVersion = value;
+            }
+            get
+            {
+                return outputVersion;
             }
         }
 

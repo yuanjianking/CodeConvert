@@ -1,4 +1,5 @@
-﻿using CodeConvert.Core;
+﻿using CodeConvert.Constant;
+using CodeConvert.Core;
 using System;
 using Convert = CodeConvert.Core.Convert;
 
@@ -124,7 +125,8 @@ namespace CodeConvert
             bool res = true;
             if (CheckArg(inType))
             {
-                Global.CreateInstance().InputType = inType;
+                Global.CreateInstance().InputVersion = "1.0";
+                Global.CreateInstance().InputType = ConvertType(inType);
             }
             else
             {
@@ -137,13 +139,41 @@ namespace CodeConvert
             bool res = true;
             if (CheckArg(outType))
             {
-                Global.CreateInstance().OutputType = outType;
+                Global.CreateInstance().OutputVersion = "1.0";
+                Global.CreateInstance().OutputType = ConvertType(outType);
             }
             else
             {
                 res = false;
             }
             return res;
+        }
+
+        private static SourceType ConvertType(string type)
+        {
+            SourceType sourceType = SourceType.Undefine;
+            switch (type)
+            {
+                case "c":
+                    sourceType = SourceType.C;
+                    break;
+                case "cpp":
+                    sourceType = SourceType.Cpp;
+                    break;
+                case "cs":
+                    sourceType = SourceType.Cs;
+                    break;
+                case "java":
+                    sourceType = SourceType.Java;
+                    break;
+                case "js":
+                    sourceType = SourceType.JS;
+                    break;
+                default:
+                    break;         
+            
+            }
+            return sourceType;
         }
     }
 }

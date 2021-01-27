@@ -56,6 +56,12 @@ namespace CodeConvert
                             case 'o':
                                 if(!SetOutputType(args[i + 1])) return;
                                 break;
+                            case 'm':
+                                if (!SetInputVersion(args[i + 1])) return;
+                                break;
+                            case 'n':
+                                if (!SetOutputVersion(args[i + 1])) return;
+                                break;
                             default:
                                 Console.WriteLine("Wrong Parameters.No Prefix");
                                 return;
@@ -125,7 +131,6 @@ namespace CodeConvert
             bool res = true;
             if (CheckArg(inType))
             {
-                Global.CreateInstance().InputVersion = "1.0";
                 Global.CreateInstance().InputType = ConvertType(inType);
             }
             else
@@ -139,8 +144,34 @@ namespace CodeConvert
             bool res = true;
             if (CheckArg(outType))
             {
-                Global.CreateInstance().OutputVersion = "1.0";
                 Global.CreateInstance().OutputType = ConvertType(outType);
+            }
+            else
+            {
+                res = false;
+            }
+            return res;
+        }
+
+        private static bool SetInputVersion(string inVersion)
+        {
+            bool res = true;
+            if (CheckArg(inVersion))
+            {
+                Global.CreateInstance().InputVersion = inVersion;
+            }
+            else
+            {
+                res = false;
+            }
+            return res;
+        }
+        private static bool SetOutputVersion(string outVersion)
+        {
+            bool res = true;
+            if (CheckArg(outVersion))
+            {
+                Global.CreateInstance().OutputVersion = outVersion;
             }
             else
             {

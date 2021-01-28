@@ -19,6 +19,7 @@ namespace CodeConvert._03SemanticAnalysis
         public SemanticDataSource Analysis()
         {
             SemanticDataSource dataSource = new SemanticDataSource();
+            dataSource.Line = this.dataSource.Line;
             return dataSource;
         }
     }

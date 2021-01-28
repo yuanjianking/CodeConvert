@@ -18,7 +18,7 @@ namespace CodeConvert._04IntermediateCodeGeneration
 
         public string [] Generation()
         {
-            string[] text = null;
+            string[] text = this.dataSource.Line;
             return text;
         }
     }

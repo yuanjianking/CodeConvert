@@ -2,6 +2,7 @@
 using CodeConvert._02SyntaxParsing;
 using CodeConvert._03SemanticAnalysis;
 using CodeConvert._04IntermediateCodeGeneration;
+using CodeConvert.Constant;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,7 @@ namespace CodeConvert.Core
 
             // 创建输出文件夹
             FileWriter writer = new FileWriter();
+            if(!writer.DeleteDirectory(global.DestinationPath)) return;
             writer.CreateDirectory(global.DestinationPath);
 
             // 读取源文件     
@@ -34,29 +36,37 @@ namespace CodeConvert.Core
             {
                 if (info is null)
                 {
-                    return;
+                    continue;
                 }
                 else {
-                    string [] line = reader.ReadAllLines(info.FullName);
-                    // 创建符号表
-                    // 词法分析
-                    LexicalAnalysisManager lexicalAnalysis = new LexicalAnalysisManager(inManager, line);
-                    LexicalDataSource lexicalDataSource = lexicalAnalysis.Analysis();
+                    if (string.Compare(info.Extension.ToLower(), (new FileExtension())[global.InputType]) == 0)
+                    {
+                        string[] line = reader.ReadAllLines(info.FullName);
+                        // 创建符号表
+                        // 词法分析
+                        LexicalAnalysisManager lexicalAnalysis = new LexicalAnalysisManager(inManager, line);
+                        LexicalDataSource lexicalDataSource = lexicalAnalysis.Analysis();
 
-                    // 语法分析
-                    SyntaxParsingManager syntaxParsing = new SyntaxParsingManager(inManager, lexicalDataSource);
-                    SyntaxDataSource syntaxDataSource = syntaxParsing.Analysis();
+                        // 语法分析
+                        SyntaxParsingManager syntaxParsing = new SyntaxParsingManager(inManager, lexicalDataSource);
+                        SyntaxDataSource syntaxDataSource = syntaxParsing.Analysis();
 
-                    // 语义分析
-                    SemanticAnalysisManager semanticAnalysis = new SemanticAnalysisManager(inManager, syntaxDataSource);
-                    SemanticDataSource semanticDataSource = semanticAnalysis.Analysis();
+                        // 语义分析
+                        SemanticAnalysisManager semanticAnalysis = new SemanticAnalysisManager(inManager, syntaxDataSource);
+                        SemanticDataSource semanticDataSource = semanticAnalysis.Analysis();
 
-                    // 转换目标代码
-                    IntermediateCodeGenerationManager intermediateCodeGeneration = new IntermediateCodeGenerationManager(inManager, semanticDataSource);
-                    string[] source = intermediateCodeGeneration.Generation();
-                    // 生成代码文件                  
-                    writer.WriteAllLines(source, global.DestinationPath + info.Name /*ext*/);
+                        // 转换目标代码
+                        IntermediateCodeGenerationManager intermediateCodeGeneration = new IntermediateCodeGenerationManager(inManager, semanticDataSource);
+                        string[] source = intermediateCodeGeneration.Generation();
 
+                        // 生成代码文件       
+                        string filename = global.DestinationPath;
+                        if (!filename.EndsWith('\\'))  filename += "\\";
+                        filename += info.Directory.ToString().Replace(info.Directory.Root.ToString(), "YJ\\");
+                        writer.CreateDirectory(filename);
+                        filename += "\\" + info.Name.Remove(info.Name.IndexOf('.')) + (new FileExtension())[global.OutputType];
+                        writer.WriteAllLines(source, filename);
+                    }
                 }
             }
         }

@@ -6,5 +6,11 @@ namespace CodeConvert._02SyntaxParsing
 {
     class SyntaxDataSource
     {
+        private string[] line;
+
+        public string[] Line
+        {
+            get; set;
+        }
     }
 }

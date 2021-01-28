@@ -18,6 +18,7 @@ namespace CodeConvert._01LexicalAnalysis
         public LexicalDataSource Analysis() 
         {
             LexicalDataSource dataSource = new LexicalDataSource();
+            dataSource.Line = line;
             return dataSource;
         }
     }

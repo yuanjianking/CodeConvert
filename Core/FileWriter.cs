@@ -29,7 +29,7 @@ namespace CodeConvert.Core
             {
                 try
                 {
-                    Directory.Delete(@"C:\Users\Public\DeleteTest", true);
+                    Directory.Delete(path, true);
                 }
                 catch (IOException e)
                 {
@@ -53,7 +53,6 @@ namespace CodeConvert.Core
             {
                 pathString =  Path.Combine(path, subpath);
             }
-            
             Directory.CreateDirectory(pathString);
         }
     }

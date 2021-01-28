@@ -6,5 +6,11 @@ namespace CodeConvert._01LexicalAnalysis
 {
     class LexicalDataSource
     {
+        private string[] line;
+
+        public string[] Line
+        {
+            get;set;
+        }
     }
 }

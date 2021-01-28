@@ -19,6 +19,7 @@ namespace CodeConvert._02SyntaxParsing
         public SyntaxDataSource Analysis()
         {
             SyntaxDataSource dataSource = new SyntaxDataSource();
+            dataSource.Line = this.dataSource.Line;
             return dataSource;
         }
     }

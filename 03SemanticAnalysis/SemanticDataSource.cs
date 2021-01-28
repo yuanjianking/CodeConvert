@@ -6,5 +6,11 @@ namespace CodeConvert._03SemanticAnalysis
 {
     class SemanticDataSource
     {
+        private string[] line;
+
+        public string[] Line
+        {
+            get; set;
+        }
     }
 }

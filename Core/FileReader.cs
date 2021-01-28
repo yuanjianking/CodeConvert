@@ -62,7 +62,10 @@ namespace CodeConvert.Core
 
                 foreach (DirectoryInfo dirInfo in subDirs)
                 {
-                    WalkDirectoryTree(dirInfo.FullName);
+                    foreach (FileInfo info in WalkDirectoryTree(dirInfo.FullName))
+                    {
+                        yield return info;
+                    }
                 }
             }
             else

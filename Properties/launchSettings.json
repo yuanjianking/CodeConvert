@@ -2,7 +2,7 @@
   "profiles": {
     "CodeConvert": {
       "commandName": "Project",
-      "commandLineArgs": "-d aa -s bbb"
+      "commandLineArgs": "-d C:\\Users\\yj\\source\\repos\\CodeConvert\\test -s C:\\Users\\yj\\source\\repos\\CodeConvert -i cs -o cpp "
     }
   }
 }

@@ -37,7 +37,6 @@ namespace CodeConvert.Core
             FileInfo[] files = null;
             DirectoryInfo[] subDirs = null;
 
-            // First, process all the files directly under this folder
             try
             {
                 files = root.GetFiles("*.*");

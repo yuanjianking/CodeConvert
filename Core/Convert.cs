@@ -39,7 +39,7 @@ namespace CodeConvert.Core
                     continue;
                 }
                 else {
-                    if (string.Compare(info.Extension.ToLower(), (new FileExtension())[global.InputType]) == 0)
+                    if (string.Compare(info.Extension.ToLower(), FileExtension.Get()[global.InputType]) == 0)
                     {
                         string[] line = reader.ReadAllLines(info.FullName);
                         // 创建符号表
@@ -64,7 +64,7 @@ namespace CodeConvert.Core
                         if (!filename.EndsWith('\\'))  filename += "\\";
                         filename += info.Directory.ToString().Replace(info.Directory.Root.ToString(), "YJ\\");
                         writer.CreateDirectory(filename);
-                        filename += "\\" + info.Name.Remove(info.Name.IndexOf('.')) + (new FileExtension())[global.OutputType];
+                        filename += "\\" + info.Name.Remove(info.Name.IndexOf('.')) + FileExtension.Get()[global.OutputType];
                         writer.WriteAllLines(source, filename);
                     }
                 }

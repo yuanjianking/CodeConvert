@@ -131,7 +131,7 @@ namespace CodeConvert
             bool res = true;
             if (CheckArg(inType))
             {
-                Global.CreateInstance().InputType = ConvertType(inType);
+                Global.CreateInstance().InputType = FileExtension.Get()[inType];
             }
             else
             {
@@ -144,7 +144,7 @@ namespace CodeConvert
             bool res = true;
             if (CheckArg(outType))
             {
-                Global.CreateInstance().OutputType = ConvertType(outType);
+                Global.CreateInstance().OutputType = FileExtension.Get()[outType];
             }
             else
             {
@@ -178,33 +178,6 @@ namespace CodeConvert
                 res = false;
             }
             return res;
-        }
-
-        private static SourceType ConvertType(string type)
-        {
-            SourceType sourceType = SourceType.Undefine;
-            switch (type)
-            {
-                case "c":
-                    sourceType = SourceType.C;
-                    break;
-                case "cpp":
-                    sourceType = SourceType.Cpp;
-                    break;
-                case "cs":
-                    sourceType = SourceType.Cs;
-                    break;
-                case "java":
-                    sourceType = SourceType.Java;
-                    break;
-                case "js":
-                    sourceType = SourceType.JS;
-                    break;
-                default:
-                    break;         
-            
-            }
-            return sourceType;
         }
     }
 }

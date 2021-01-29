@@ -23,7 +23,7 @@ namespace CodeConvert.Core
           
             // 加载输出语法规则
             SourceManager outManager = new SourceManager(global.OutputVersion, global.OutputType);
-            if (!inManager.Load()) return;
+            if (!outManager.Load()) return;
 
             // 创建输出文件夹
             FileWriter writer = new FileWriter();

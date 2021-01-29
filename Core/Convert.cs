@@ -18,12 +18,8 @@ namespace CodeConvert.Core
             Global global = Global.CreateInstance();
 
             // 加载输入语法规则
-            SourceManager inManager = new SourceManager(global.InputVersion, global.InputType);
-            if (!inManager.Load()) return;
-          
-            // 加载输出语法规则
-            SourceManager outManager = new SourceManager(global.OutputVersion, global.OutputType);
-            if (!outManager.Load()) return;
+            SourceManager manager = new SourceManager();
+            if (!manager.Load()) return;
 
             // 创建输出文件夹
             FileWriter writer = new FileWriter();
@@ -44,28 +40,30 @@ namespace CodeConvert.Core
                         string[] line = reader.ReadAllLines(info.FullName);
                         // 创建符号表
                         // 词法分析
-                        LexicalAnalysisManager lexicalAnalysis = new LexicalAnalysisManager(inManager, line);
+                        LexicalAnalysisManager lexicalAnalysis = new LexicalAnalysisManager(manager, line);
                         LexicalDataSource lexicalDataSource = lexicalAnalysis.Analysis();
 
                         // 语法分析
-                        SyntaxParsingManager syntaxParsing = new SyntaxParsingManager(inManager, lexicalDataSource);
+                        SyntaxParsingManager syntaxParsing = new SyntaxParsingManager(manager, lexicalDataSource);
                         SyntaxDataSource syntaxDataSource = syntaxParsing.Analysis();
 
                         // 语义分析
-                        SemanticAnalysisManager semanticAnalysis = new SemanticAnalysisManager(inManager, syntaxDataSource);
+                        SemanticAnalysisManager semanticAnalysis = new SemanticAnalysisManager(manager, syntaxDataSource);
                         SemanticDataSource semanticDataSource = semanticAnalysis.Analysis();
 
                         // 转换目标代码
-                        IntermediateCodeGenerationManager intermediateCodeGeneration = new IntermediateCodeGenerationManager(inManager, semanticDataSource);
+                        IntermediateCodeGenerationManager intermediateCodeGeneration = new IntermediateCodeGenerationManager(manager, semanticDataSource);
                         string[] source = intermediateCodeGeneration.Generation();
 
-                        // 生成代码文件       
-                        string filename = global.DestinationPath;
-                        if (!filename.EndsWith('\\'))  filename += "\\";
-                        filename += info.Directory.ToString().Replace(info.Directory.Root.ToString(), "YJ\\");
-                        writer.CreateDirectory(filename);
-                        filename += "\\" + info.Name.Remove(info.Name.IndexOf('.')) + FileExtension.Get()[global.OutputType];
-                        writer.WriteAllLines(source, filename);
+                        // 生成代码文件    
+                        StringBuilder sb = new StringBuilder(global.DestinationPath);
+                        sb.Append(global.DestinationPath.EndsWith('\\') ? "" : "\\");
+                        sb.Append(info.Directory.ToString().Replace(info.Directory.Root.ToString(), "YJ\\"));
+                        writer.CreateDirectory(sb.ToString());
+                        sb.Append("\\");
+                        sb.Append(info.Name.Remove(info.Name.IndexOf('.')));
+                        sb.Append(FileExtension.Get()[global.OutputType]);
+                        writer.WriteAllLines(source, sb.ToString());
                     }
                 }
             }

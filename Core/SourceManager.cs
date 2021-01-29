@@ -8,26 +8,45 @@ namespace CodeConvert.Core
 {
     class SourceManager
     {
-        private string version = "";
-        private SourceType sourceType = SourceType.Undefine;
-        private SouceDefend souceDefend;
+        Global global = Global.CreateInstance();
+        private ASourceInOut aSourceIn;
+        private ASourceInOut aSourceOut;
 
-        public SourceManager(string version, SourceType type)
+        public SourceManager()
         {
-            this.version = version;
-            this.sourceType = type;        
         }
-
         public bool Load()
         {
-            souceDefend = new SouceDefend(version, sourceType);
-            souceDefend.GetIo();
-            // 先判断有咩有该语言的定义资源
+            bool res = true;
+            if ((res = LoadIn()))
+            {
+                res = LoadOut();
+            }           
+            
+            return res;
+        }
 
-            // 在判断有没有该语言的转换版本
-
-            // 再判断有没有该语言的输入配置
+        public bool LoadIn()
+        {
+            aSourceIn = SouceDefendFactory.GetIo(global.InputVersion, global.InputType);
             return true;
+        }
+
+        public bool LoadOut()
+        {
+            aSourceOut = SouceDefendFactory.GetIo(global.OutputVersion, global.OutputType);
+            return true;
+        }
+
+        public ASourceInOut SourceIn
+        {
+            get { return aSourceIn; }
+        }
+
+
+        public ASourceInOut SourceOut
+        {
+            get { return aSourceOut; }
         }
     }
 }

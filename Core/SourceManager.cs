@@ -8,7 +8,7 @@ namespace CodeConvert.Core
 {
     class SourceManager
     {
-        Global global = Global.CreateInstance();
+        private Global global = Global.CreateInstance();
         private ASourceInOut aSourceIn;
         private ASourceInOut aSourceOut;
 

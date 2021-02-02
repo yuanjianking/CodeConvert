@@ -1,4 +1,5 @@
 ﻿using CodeConvert.Constant;
+using CodeConvert.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,23 +19,7 @@ namespace CodeConvert.SourceDefend
         public static ASourceInOut GetIo(in string version, in SourceType sourceType)
         {
             SourceType source = sourceType;
-            ASourceInOut aSource = null;
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            List<Type> typeList = assembly.GetTypes().Where(t => t.FullName.Contains(MethodBase.GetCurrentMethod().DeclaringType.Namespace) && t.Name.Contains(source.ToString())).ToList();
-
-            foreach (Type t in typeList)
-            {
-                object[] attributes = t.GetCustomAttributes(typeof(TypeNameAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    TypeNameAttribute typeName = (TypeNameAttribute)attributes[0];
-                    if(typeName.Type == source)
-                    { 
-                        aSource = Activator.CreateInstance(t) as ASourceInOut;
-                        break;
-                    }
-                }
-            }
+            ASourceInOut aSource = Polymorphic.CreateInstance<ASourceInOut>(t => t.FullName.Equals("CodeConvert.SourceDefend." + source.ToString()), source);
             aSource.Init(version);
             return aSource;
         }

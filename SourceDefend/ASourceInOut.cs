@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeConvert.Constant;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,14 +7,13 @@ namespace CodeConvert.SourceDefend
 {
     abstract class ASourceInOut
     {
-        private string version;
+        private string version = "1.0";
 
         protected abstract bool CheckVersion();
 
         protected abstract void LoadDefend();
 
-        protected abstract int getA();
-        protected abstract int getB();
+        public abstract CodeType GetCode(in string str);
 
         public void Init(string version)
         {

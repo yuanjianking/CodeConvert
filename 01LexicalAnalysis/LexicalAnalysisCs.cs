@@ -36,7 +36,7 @@ namespace CodeConvert._01LexicalAnalysis
 
                         CodeType code = Manager.SourceIn.GetCode(word);
                         if (code != CodeType.T_UnDefend)
-                        { 
+                        {
                             yield return new LexicalDataUnit(code, word);
                         }
                         else
@@ -53,13 +53,37 @@ namespace CodeConvert._01LexicalAnalysis
                         }
                         yield return new LexicalDataUnit(CodeType.T_Constant, word);
                     }
+                    else if (c == '#')
+                    {
+                        while (IsLetter(charArray[i]) || charArray[i] == ' ')
+                        {
+                            word += charArray[i];
+                            //如有是预处里指令 就break
+                            i++;
+                            //否则就continue
+                        }
+                        yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);
+                    }
+                    else if (c == '@')
+                    {       word += charArray[i];
+                            i++;
+                        yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);
+                    }
+                    else if (c == '$')
+                    {
+                        word += charArray[i];
+                        i++;
+                        yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);
+                    }
                     else
                     {
+                        //判断是不是存再
+                        //存再就继续
                         switch (c)
                         {
-                            case '/':
+                            case '#':
                                 break;
-                            case '@':
+                            case '/':
                                 break;
                             case '"':
                                 break;
@@ -70,6 +94,10 @@ namespace CodeConvert._01LexicalAnalysis
                             case '&':
                                 break;
                             case '|':
+                                break;
+                            case '>':
+                                break;
+                            case '<':
                                 break;
                             default:
                                 yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);

@@ -36,6 +36,7 @@ namespace CodeConvert._01LexicalAnalysis
                     switch (ct)
                     {
                         case CodeType.T_UnDefend:
+                            dataSource.LexicalDatas.Add(new LexicalDataUnit(res.Code, res.Token));
                             break;
                         case CodeType.T_Identifier:
                         case CodeType.T_Constant:
@@ -49,7 +50,7 @@ namespace CodeConvert._01LexicalAnalysis
                     break;
                 }
             }
-            while (ct != CodeType.T_UnDefend);
+            while (true/*ct != CodeType.T_UnDefend*/);
             Console.WriteLine(dataSource.ToString());
             return dataSource;
         }

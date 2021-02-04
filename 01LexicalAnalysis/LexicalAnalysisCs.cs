@@ -27,8 +27,8 @@ namespace CodeConvert._01LexicalAnalysis
                         i++;
                     }
                     else if (IsLetter(c))
-                    {
-                        while (IsLetter(charArray[i]) || IsDigit(charArray[i]))
+                    {                       
+                        while ((i < len) && (IsLetter(charArray[i]) || IsDigit(charArray[i])))
                         {
                             word += charArray[i];
                             i++;
@@ -46,7 +46,7 @@ namespace CodeConvert._01LexicalAnalysis
                     }
                     else if (IsDigit(c))
                     {
-                        while (IsDigit(charArray[i]))
+                        while ((i < len) && IsDigit(charArray[i]))
                         {
                             word += charArray[i];
                             i++;
@@ -57,17 +57,17 @@ namespace CodeConvert._01LexicalAnalysis
                     {
                         word += charArray[i];
                         i++;
-                        while (IsLetter(charArray[i]))
+                        while ((i < len) && IsLetter(charArray[i]))
                         {
                             word += charArray[i];
                             i++;
                         }
 
-                        if (word.Equals("#pragma") && charArray[i] == ' ' && (charArray[i + 1] == 'w' || charArray[i + 1] == 'c'))
+                        if (word.Equals("#pragma") && (i < len) && charArray[i] == ' ' && (charArray[i + 1] == 'w' || charArray[i + 1] == 'c'))
                         {
                             word += charArray[i];
                             i ++;
-                            while (IsLetter(charArray[i]))
+                            while ((i < len) && IsLetter(charArray[i]))
                             {
                                 word += charArray[i];
                                 i++;
@@ -102,7 +102,12 @@ namespace CodeConvert._01LexicalAnalysis
                                 break;
                             }
                         }
-                        yield return new LexicalDataUnit(code, string.IsNullOrEmpty(word) ? charArray[i].ToString(): word);
+                        if (string.IsNullOrEmpty(word))
+                        {
+                            word += charArray[i];
+                            i++;
+                        }
+                        yield return new LexicalDataUnit(code, word);
                     }                 
                 }
             }

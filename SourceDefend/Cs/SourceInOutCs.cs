@@ -32,9 +32,9 @@ namespace CodeConvert.SourceDefend.Cs
         public override bool HasCode(in string word, ref CodeType code)
         {
             bool res = false;
-            if(lexicalTable.isOperatorCharacter(word))
+            if(res = lexicalTable.isOperatorCharacter(word))
             {
-                res = lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out code);
+                lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out code);
             }
             return res;
         }

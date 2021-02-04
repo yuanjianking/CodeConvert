@@ -24,7 +24,7 @@ namespace CodeConvert._01LexicalAnalysis
         {
             LexicalDataSource dataSource = new LexicalDataSource();
             CodeType ct = CodeType.T_UnDefend;
-            LexicalAnalysis lexicalAnalysis = Polymorphic.CreateInstance<LexicalAnalysis>(t => t.FullName.Equals("CodeConvert._01LexicalAnalysis") && t.Name.Contains(global.InputType.ToString()), global.InputType);
+            LexicalAnalysis lexicalAnalysis = Polymorphic.CreateInstance<LexicalAnalysis>(t => t.FullName.Contains("CodeConvert._01LexicalAnalysis") && t.Name.Contains(global.InputType.ToString()), global.InputType);
 
             IEnumerator<LexicalDataUnit> lexicalDatas = lexicalAnalysis.Scaner(lines, Manager).GetEnumerator();
             do
@@ -50,7 +50,7 @@ namespace CodeConvert._01LexicalAnalysis
                 }
             }
             while (ct != CodeType.T_UnDefend);
-            Console.WriteLine(dataSource.LexicalDatas.ToString());
+            Console.WriteLine(dataSource.ToString());
             return dataSource;
         }
 

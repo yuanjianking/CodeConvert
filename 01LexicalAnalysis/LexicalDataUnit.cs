@@ -18,5 +18,11 @@ namespace CodeConvert._01LexicalAnalysis
         public CodeType Code { get { return code; } }
 
         public string Token { get { return token; } }
+
+        public override string ToString()
+        {
+
+            return "< " + code.ToString()+ " , " + token + " >";
+        }
     }
 }

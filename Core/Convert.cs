@@ -42,7 +42,6 @@ namespace CodeConvert.Core
                         // 词法分析
                         LexicalAnalysisManager lexicalAnalysis = new LexicalAnalysisManager(manager, line);
                         LexicalDataSource lexicalDataSource = lexicalAnalysis.Analysis();
-
                         // 语法分析
                         SyntaxParsingManager syntaxParsing = new SyntaxParsingManager(manager, lexicalDataSource);
                         SyntaxDataSource syntaxDataSource = syntaxParsing.Analysis();

@@ -19,7 +19,8 @@ namespace CodeConvert.SourceDefend
         public static ASourceInOut GetIo(in string version, in SourceType sourceType)
         {
             SourceType source = sourceType;
-            ASourceInOut aSource = Polymorphic.CreateInstance<ASourceInOut>(t => t.FullName.Equals("CodeConvert.SourceDefend." + source.ToString()), source);
+            ASourceInOut aSource = Polymorphic.CreateInstance<ASourceInOut>(t => t.FullName.Contains("CodeConvert.SourceDefend." + source.ToString()), source);
+
             aSource.Init(version);
             return aSource;
         }

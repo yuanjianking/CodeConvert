@@ -13,6 +13,11 @@ namespace CodeConvert.SourceDefend.Cpp
             throw new NotImplementedException();
         }
 
+        public override bool HasCode(in string word, ref CodeType code)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override bool CheckVersion()
         {
             Console.WriteLine(SourceType.Cpp);

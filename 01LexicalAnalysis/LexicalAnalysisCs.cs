@@ -55,18 +55,31 @@ namespace CodeConvert._01LexicalAnalysis
                     }
                     else if (c == '#')
                     {
-                        while (IsLetter(charArray[i]) || charArray[i] == ' ')
+                        word += charArray[i];
+                        i++;
+                        while (IsLetter(charArray[i]))
                         {
                             word += charArray[i];
-                            //如有是预处里指令 就break
                             i++;
-                            //否则就continue
                         }
+
+                        if (word.Equals("#pragma") && charArray[i] == ' ' && (charArray[i + 1] == 'w' || charArray[i + 1] == 'c'))
+                        {
+                            word += charArray[i];
+                            i ++;
+                            while (IsLetter(charArray[i]))
+                            {
+                                word += charArray[i];
+                                i++;
+                            }
+                        }
+
                         yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);
                     }
                     else if (c == '@')
-                    {       word += charArray[i];
-                            i++;
+                    {     
+                        word += charArray[i];
+                        i++;
                         yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);
                     }
                     else if (c == '$')
@@ -77,35 +90,23 @@ namespace CodeConvert._01LexicalAnalysis
                     }
                     else
                     {
-                        //判断是不是存再
-                        //存再就继续
-                        switch (c)
+                        CodeType code = CodeType.T_UnDefend;
+                        for (; i < len; i++)
                         {
-                            case '#':
+                            if (Manager.SourceIn.HasCode(word + charArray[i], ref code))
+                            {
+                                word += charArray[i];
+                            }
+                            else
+                            {
                                 break;
-                            case '/':
-                                break;
-                            case '"':
-                                break;
-                            case ':':
-                                break;
-                            case '?':
-                                break;
-                            case '&':
-                                break;
-                            case '|':
-                                break;
-                            case '>':
-                                break;
-                            case '<':
-                                break;
-                            default:
-                                yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);
-                                break;
+                            }
                         }
-                    } 
+                        yield return new LexicalDataUnit(code, string.IsNullOrEmpty(word) ? charArray[i].ToString(): word);
+                    }                 
                 }
             }
         }
     }
+
 }

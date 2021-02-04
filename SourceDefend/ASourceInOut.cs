@@ -15,6 +15,8 @@ namespace CodeConvert.SourceDefend
 
         public abstract CodeType GetCode(in string str);
 
+        public abstract bool HasCode(in string word, ref CodeType code);
+
         public void Init(string version)
         {
             this.version = version;

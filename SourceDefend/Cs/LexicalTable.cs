@@ -1,6 +1,7 @@
 ﻿using CodeConvert.Constant;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CodeConvert.SourceDefend.Cs
@@ -156,10 +157,17 @@ namespace CodeConvert.SourceDefend.Cs
             return codeDictionary.GetValueOrDefault(version);
         }
 
-        public bool Hascharacter(in char c)
+        public bool isOperatorCharacter( string c)
         {
-
-            return true;
+            bool res = false;
+            if (operatorcharacter1.Where(m => m.Equals(c)).Count() > 0 ||
+                operatorcharacter2.Where(m => m.Equals(c)).Count() > 0 ||
+                operatorcharacter3.Where(m => m.Equals(c)).Count() > 0)
+            {
+                res = true;
+            }
+            return res;
         }
+
     }
 }

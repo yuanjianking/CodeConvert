@@ -24,7 +24,7 @@ namespace CodeConvert.SourceDefend.Cs
 
         public override CodeType GetCode(in string word)
         {
-            CodeType code = CodeType.T_UnDefend;
+            CodeType code = CodeType.T_A_UNDEFEND;
             lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out code);
             return code;
         }
@@ -34,7 +34,7 @@ namespace CodeConvert.SourceDefend.Cs
             bool res = false;
             if(res = lexicalTable.isOperatorCharacter(word))
             {
-                lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out code);
+               res = lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out code);
             }
             return res;
         }

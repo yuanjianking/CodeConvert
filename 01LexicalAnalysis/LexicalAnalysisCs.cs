@@ -27,53 +27,94 @@ namespace CodeConvert._01LexicalAnalysis
                         i++;
                     }
                     else if (IsLetter(c))
-                    {                       
-                        while ((i < len) && (IsLetter(charArray[i]) || IsDigit(charArray[i])))
+                    {
+                        for (; i < len; i++)
                         {
-                            word += charArray[i];
-                            i++;
+                            if (IsLetter(charArray[i]) || IsDigit(charArray[i]))
+                            {
+                                word += charArray[i];
+                                continue;
+                            }
+                            else 
+                            {
+                                break;
+                            }
                         }
 
                         CodeType code = Manager.SourceIn.GetCode(word);
-                        if (code != CodeType.T_UnDefend)
+                        if (code != CodeType.T_A_UNDEFEND)
                         {
                             yield return new LexicalDataUnit(code, word);
                         }
                         else
                         {
-                            yield return new LexicalDataUnit(CodeType.T_Identifier, word);
+                            yield return new LexicalDataUnit(CodeType.T_A_IDENTIFIER, word);
                         }
                     }
                     else if (IsDigit(c))
                     {
-                        while ((i < len) && IsDigit(charArray[i]))
+                        for (; i < len; i++)
                         {
-                            word += charArray[i];
-                            i++;
+                            if (IsDigit(charArray[i]))
+                            {
+                                word += charArray[i];
+                                continue;
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
-                        yield return new LexicalDataUnit(CodeType.T_Constant, word);
+                        yield return new LexicalDataUnit(CodeType.T_A_CONSTANT, word);
                     }
                     else if (c == '#')
                     {
-                        word += charArray[i];
-                        i++;
-                        while ((i < len) && IsLetter(charArray[i]))
+                        for (word += charArray[i++]; i < len; i++)
                         {
-                            word += charArray[i];
-                            i++;
-                        }
-
-                        if (word.Equals("#pragma") && (i < len) && charArray[i] == ' ' && (charArray[i + 1] == 'w' || charArray[i + 1] == 'c'))
-                        {
-                            word += charArray[i];
-                            i ++;
-                            while ((i < len) && IsLetter(charArray[i]))
+                            if (IsLetter(charArray[i]))
                             {
                                 word += charArray[i];
-                                i++;
+                                continue;
+                            }
+                            else if (charArray[i] == ' ')
+                            {
+                                if (word.Equals("#pragma"))
+                                {
+                                    string tmp = "";
+                                    int j = i + 1;
+                                    for ( ; j < len; j++)
+                                    {
+                                        if (IsLetter(charArray[i]))
+                                        {
+                                            tmp += charArray[i];
+                                            continue;
+                                        }
+                                        else 
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (Manager.SourceIn.GetCode(word + charArray[i] + tmp) == CodeType.T_A_UNDEFEND)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        word = word + charArray[i] + tmp;
+                                        i = j;
+                                        break;
+                                    };
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
-
                         yield return new LexicalDataUnit(Manager.SourceIn.GetCode(word), word);
                     }
                     else if (c == '@')
@@ -90,12 +131,13 @@ namespace CodeConvert._01LexicalAnalysis
                     }
                     else
                     {
-                        CodeType code = CodeType.T_UnDefend;
-                        for (; i < len; i++)
+                        CodeType code = CodeType.T_A_UNDEFEND;
+                        for ( ; i < len; i++)
                         {
                             if (Manager.SourceIn.HasCode(word + charArray[i], ref code))
                             {
                                 word += charArray[i];
+                                continue;
                             }
                             else
                             {

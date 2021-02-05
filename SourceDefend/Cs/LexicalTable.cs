@@ -117,7 +117,6 @@ namespace CodeConvert.SourceDefend.Cs
                                 "var",
                                 "when",
                                 "where",
-                                "where",
                                 "with",
                                 "yield"
                             };
@@ -138,9 +137,9 @@ namespace CodeConvert.SourceDefend.Cs
                                         "#pragma checksum"
                                          };
         private string[] specialcharacter = {"@", "$"};
-        private string[] operatorcharacter1 = { "?", ":", "=", "&", "*", "+", "-", "/", "%", ">", "<", ".", "[", "]", "(", ")", "{", "}", "^" ,"~", "&", "|", "!", ";", "\\", "," };
-        private string[] operatorcharacter2 = { "::", "=>", "??", "-=", "+=", "->", "++", "--", "==", "!=", ">=", "<=", ".." , ">>", "<<", "&&", "||" };
-        private string[] operatorcharacter3 = { "??=", "..." };
+        private string[] operatorcharacter1 = { "?", ":", "=", "&", "*", "+", "-", "/", "%", ">", "<", ".", "[", "]", "(", ")", "{", "}", "^" ,"~", "|", "!", ";", "\\", "," };
+        private string[] operatorcharacter2 = { "//", "/*", "*/", "::", "=>", "??", "-=", "+=", "->", "++", "--", "==", "!=", ">=", "<=", ".." , ">>", "<<", "&&", "||" };
+        private string[] operatorcharacter3 = { "??=", "///" };
         public LexicalTable()
         {
             codeDictionary.Add("1.0", v1);

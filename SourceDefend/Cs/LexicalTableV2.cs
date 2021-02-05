@@ -9,7 +9,7 @@ namespace CodeConvert.SourceDefend.Cs
     {
         private Dictionary<string, CodeType> v2 = new Dictionary<string, CodeType>()
         {
-           { "=", CodeType.T_Equal}
+           { "=", CodeType.T_OPERATION_EQUAL}
         };
     }
 }

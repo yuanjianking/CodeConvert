@@ -56,6 +56,10 @@ namespace CodeConvert.Constant
         /// </summary>
         T_BOUND_SEMICOLON,
         /// <summary>
+        /// ","
+        /// </summary>
+        T_BOUND_QUOTE,
+        /// <summary>
         /// "\\"
         /// </summary>
         T_BOUND_BACKSLASH,
@@ -71,10 +75,6 @@ namespace CodeConvert.Constant
         /// "*/"
         /// </summary>
         T_BOUND_STARSLASH,
-        /// <summary>
-        /// ","
-        /// </summary>
-        T_BOUND_QUOTE,
         /// <summary>
         /// "::"
         /// </summary> 

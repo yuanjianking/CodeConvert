@@ -1,7 +1,6 @@
 ﻿using CodeConvert._01LexicalAnalysis;
 using CodeConvert._02SyntaxParsing;
-using CodeConvert._03SemanticAnalysis;
-using CodeConvert._04IntermediateCodeGeneration;
+using CodeConvert._03CodeBuilder;
 using CodeConvert.Constant;
 using System;
 using System.Collections.Generic;
@@ -38,31 +37,26 @@ namespace CodeConvert.Core
                     if (string.Compare(info.Extension.ToLower(), FileExtension.Get()[global.InputType]) == 0)
                     {
                         string[] line = reader.ReadAllLines(info.FullName);
-                        // 创建符号表
+
                         // 词法分析
                         LexicalAnalysisManager lexicalAnalysis = new LexicalAnalysisManager(manager, line);
                         LexicalDataSource lexicalDataSource = lexicalAnalysis.Analysis();
                         // 语法分析
                         SyntaxParsingManager syntaxParsing = new SyntaxParsingManager(manager, lexicalDataSource);
-                        SyntaxDataSource syntaxDataSource = syntaxParsing.Analysis();
+                        SyntaxDataSource syntaxDataSource = syntaxParsing.Parsing();
 
-                        // 语义分析
-                        SemanticAnalysisManager semanticAnalysis = new SemanticAnalysisManager(manager, syntaxDataSource);
-                        SemanticDataSource semanticDataSource = semanticAnalysis.Analysis();
+                        // 生成代码文件
+                        CodeBuilerJava java = new CodeBuilerJava(syntaxDataSource);
+                        string[] code = java.Build();
 
-                        // 转换目标代码
-                        IntermediateCodeGenerationManager intermediateCodeGeneration = new IntermediateCodeGenerationManager(manager, semanticDataSource);
-                        string[] source = intermediateCodeGeneration.Generation();
-
-                        // 生成代码文件    
                         StringBuilder sb = new StringBuilder(global.DestinationPath);
                         sb.Append(global.DestinationPath.EndsWith('\\') ? "" : "\\");
-                        sb.Append(info.Directory.ToString().Replace(info.Directory.Root.ToString(), "YJ\\"));
+                        //     sb.Append(info.Directory.ToString().Replace(info.Directory.Root.ToString(), "YJ\\"));
                         writer.CreateDirectory(sb.ToString());
-                        sb.Append("\\");
+                        //       sb.Append("\\");
                         sb.Append(info.Name.Remove(info.Name.IndexOf('.')));
                         sb.Append(FileExtension.Get()[global.OutputType]);
-                        writer.WriteAllLines(source, sb.ToString());
+                        writer.WriteAllLines(code, sb.ToString());
                     }
                 }
             }

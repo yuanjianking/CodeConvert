@@ -2,7 +2,7 @@
   "profiles": {
     "CodeConvert": {
       "commandName": "Project",
-      "commandLineArgs": "-d C:\\Users\\yj\\source\\repos\\CodeConvert\\test -s C:\\Users\\yj\\source\\repos\\CodeConvert -i cs -o cpp  -m  1.0 -n 1.0"
+      "commandLineArgs": "-d D:\\C#\\CodeConvert-master\\test\\cpp\\ -s D:\\C#\\CodeConvert-master\\test -i cs -o Java -m  1.0 -n 1.0"
     }
   }
 }

@@ -13,9 +13,9 @@ namespace CodeConvert.SourceDefend
 
         protected abstract void LoadDefend();
 
-        public abstract CodeType GetCode(in string str);
+        public abstract T GetCode<T>(in string word);
 
-        public abstract bool HasCode(in string word, ref CodeType code);
+        public abstract bool HasCode<T>(in string word, ref T code);
 
         public void Init(string version)
         {

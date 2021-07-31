@@ -23,40 +23,10 @@ namespace CodeConvert._01LexicalAnalysis
         public LexicalDataSource Analysis() 
         {
             LexicalDataSource dataSource = new LexicalDataSource();
-            CodeType ct = CodeType.T_A_UNDEFEND;
             LexicalAnalysis lexicalAnalysis = Polymorphic.CreateInstance<LexicalAnalysis>(t => t.FullName.Contains("CodeConvert._01LexicalAnalysis") && t.Name.Contains(global.InputType.ToString()), global.InputType);
-
-            IEnumerator<LexicalDataUnit> lexicalDatas = lexicalAnalysis.Scaner(lines, Manager).GetEnumerator();
-            do
-            {
-                if (lexicalDatas.MoveNext())
-                {
-                    LexicalDataUnit res = lexicalDatas.Current;
-                    ct = res.Code;
-                    switch (ct)
-                    {
-                        case CodeType.T_A_UNDEFEND:
-                            break;
-                        case CodeType.T_A_IDENTIFIER:
-                        case CodeType.T_A_CONSTANT:
-                        default:
-                            dataSource.LexicalDatas.Add(new LexicalDataUnit(res.Code, res.Token));
-                            break;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-            while (ct != CodeType.T_A_UNDEFEND);
+            dataSource = lexicalAnalysis.Analysis(lines, Manager);
             Console.WriteLine(dataSource.ToString());
             return dataSource;
         }
-
-      
-
-
-
     }
 }

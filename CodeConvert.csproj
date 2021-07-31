@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartupObject>CodeConvert.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -14,9 +15,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="SourceDefend\C\" />
-    <Folder Include="SourceDefend\JavaScript\" />
-    <Folder Include="SourceDefend\Java\" />
+    <Compile Remove="SourceDefend\C\**" />
+    <Compile Remove="SourceDefend\JavaScript\**" />
+    <Compile Remove="SourceDefend\Java\**" />
+    <EmbeddedResource Remove="SourceDefend\C\**" />
+    <EmbeddedResource Remove="SourceDefend\JavaScript\**" />
+    <EmbeddedResource Remove="SourceDefend\Java\**" />
+    <None Remove="SourceDefend\C\**" />
+    <None Remove="SourceDefend\JavaScript\**" />
+    <None Remove="SourceDefend\Java\**" />
   </ItemGroup>
 
 </Project>

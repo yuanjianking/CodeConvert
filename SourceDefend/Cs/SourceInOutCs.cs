@@ -22,20 +22,22 @@ namespace CodeConvert.SourceDefend.Cs
            // throw new NotImplementedException();
         }
 
-        public override CodeType GetCode(in string word)
+        public override T GetCode<T>(in string word)
         {
-            CodeType code = CodeType.T_A_UNDEFEND;
+            CodeTypeCs code = CodeTypeCs.T_A_UNDEFEND;
             lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out code);
-            return code;
+            return (T)Convert.ChangeType(code, typeof(T));
         }
 
-        public override bool HasCode(in string word, ref CodeType code)
+        public override bool HasCode<T>(in string word, ref T code)
         {
             bool res = false;
-            if(res = lexicalTable.isOperatorCharacter(word))
+            CodeTypeCs codeType = CodeTypeCs.T_A_UNDEFEND;
+            if (res = lexicalTable.isOperatorCharacter(word))
             {
-               res = lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out code);
+                res = lexicalTable.GetCodeDictionary(Version).TryGetValue(word, out codeType);
             }
+            code = (T)Convert.ChangeType(codeType, typeof(T));
             return res;
         }
     }

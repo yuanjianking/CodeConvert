@@ -1,5 +1,4 @@
-﻿using CodeConvert.Constant;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,7 @@ namespace CodeConvert.SourceDefend.Cs
     partial class LexicalTable
     {
         private string[] version = { "1.0", "2.0" };
-        private Dictionary<string, Dictionary<string, CodeType>> codeDictionary = new Dictionary<string, Dictionary<string, CodeType>>();
+        private Dictionary<string, Dictionary<string, CodeTypeCs>> codeDictionary = new Dictionary<string, Dictionary<string, CodeTypeCs>>();
         private string[] keyword = {
                                 "abstract",
                                 "as",
@@ -151,7 +150,7 @@ namespace CodeConvert.SourceDefend.Cs
             return version.Contains(version);
         }
 
-        public Dictionary<string, CodeType> GetCodeDictionary(in string version)
+        public Dictionary<string, CodeTypeCs> GetCodeDictionary(in string version)
         {           
             return codeDictionary.GetValueOrDefault(version);
         }

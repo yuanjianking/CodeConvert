@@ -20,8 +20,10 @@ namespace CodeConvert.SourceDefend
         {
             SourceType source = sourceType;
             ASourceInOut aSource = Polymorphic.CreateInstance<ASourceInOut>(t => t.FullName.Contains("CodeConvert.SourceDefend." + source.ToString()), source);
-
-            aSource.Init(version);
+            if (aSource != null)
+            {
+                aSource.Init(version);
+            }
             return aSource;
         }
     }

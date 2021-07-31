@@ -9,6 +9,7 @@ namespace CodeConvert._02SyntaxParsing
     class SyntaxParsingManager
     {
         private SourceManager Manager;
+        private Global global = Global.CreateInstance();
         private LexicalDataSource dataSource;
         public SyntaxParsingManager(SourceManager Manager, LexicalDataSource dataSource)
         {
@@ -16,11 +17,14 @@ namespace CodeConvert._02SyntaxParsing
             this.dataSource = dataSource;
         }
 
-        public SyntaxDataSource Analysis()
+        public SyntaxDataSource Parsing()
         {
             SyntaxDataSource dataSource = new SyntaxDataSource();
-            dataSource.Line = this.dataSource.Line;
+            SyntaxParsing  syntaxParsing = Polymorphic.CreateInstance<SyntaxParsing>(t => t.FullName.Contains("CodeConvert._02SyntaxParsing") && t.Name.Contains(global.InputType.ToString()), global.InputType);
+            dataSource = syntaxParsing.Parsing(this.dataSource, Manager);
+            Console.WriteLine(dataSource.ToString());
             return dataSource;
+
         }
     }
 }

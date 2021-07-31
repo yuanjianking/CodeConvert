@@ -8,12 +8,12 @@ namespace CodeConvert.SourceDefend.Cpp
     [TypeNameAttribute(SourceType.Cpp)]
     class SourceInOutCpp : ASourceInOut
     {
-        public override CodeType GetCode(in string str)
+        public override T GetCode<T>(in string word)
         {
             throw new NotImplementedException();
         }
 
-        public override bool HasCode(in string word, ref CodeType code)
+        public override bool HasCode<T>(in string word, ref T code)
         {
             throw new NotImplementedException();
         }

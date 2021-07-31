@@ -19,8 +19,7 @@ namespace CodeConvert._01LexicalAnalysis
             return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
         }
 
+        abstract public LexicalDataSource Analysis(string[] lines, SourceManager Manager);
 
-        abstract public IEnumerable<LexicalDataUnit> Scaner(string[] lines, SourceManager Manager);
-        
     }
 }
